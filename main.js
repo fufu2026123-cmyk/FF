@@ -189,7 +189,7 @@ let levelState = {};
 let toastTimer = null;
 
 function loadProgress() {
-  const fallback = { unlockedLevel: 1, completed: [] };
+  const fallback = { unlockedLevel: 1, completed: [], runs: {} };
   try {
     return { ...fallback, ...JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}") };
   } catch (error) {
@@ -200,9 +200,11 @@ function loadProgress() {
 function normalizeProgress(raw) {
   const completed = Array.isArray(raw.completed) ? raw.completed.filter((id) => id <= levels.length) : [];
   const nextUnlocked = completed.length ? Math.min(Math.max(...completed) + 1, levels.length) : 1;
+  const runs = raw.runs && typeof raw.runs === "object" ? raw.runs : {};
   return {
     unlockedLevel: Math.max(Math.min(raw.unlockedLevel || 1, levels.length), nextUnlocked),
-    completed
+    completed,
+    runs
   };
 }
 
@@ -210,14 +212,54 @@ function saveProgress() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
 }
 
+function getDefaultRunState() {
+  return {
+    selectedItem: null,
+    inventory: [],
+    levelState: { notes: [], hintIndex: 0 }
+  };
+}
+
 function resetRunState() {
-  selectedItem = null;
-  inventory = [];
-  levelState = { notes: [], hintIndex: 0 };
+  const run = getDefaultRunState();
+  selectedItem = run.selectedItem;
+  inventory = run.inventory;
+  levelState = run.levelState;
+}
+
+function loadRunState(levelId) {
+  const saved = progress.runs?.[levelId];
+  if (!saved) {
+    resetRunState();
+    return;
+  }
+  inventory = Array.isArray(saved.inventory) ? [...saved.inventory] : [];
+  selectedItem = inventory.includes(saved.selectedItem) ? saved.selectedItem : null;
+  levelState = saved.levelState && typeof saved.levelState === "object"
+    ? { notes: [], hintIndex: 0, ...saved.levelState }
+    : { notes: [], hintIndex: 0 };
+  if (!Array.isArray(levelState.notes)) levelState.notes = [];
+  if (typeof levelState.hintIndex !== "number") levelState.hintIndex = 0;
+}
+
+function saveRunSnapshot() {
+  if (!currentLevel) return;
+  progress.runs = progress.runs || {};
+  progress.runs[currentLevel.id] = {
+    selectedItem,
+    inventory: [...inventory],
+    levelState: JSON.parse(JSON.stringify(levelState))
+  };
+  saveProgress();
+}
+
+function clearRunSnapshot(levelId) {
+  if (!progress.runs) return;
+  delete progress.runs[levelId];
 }
 
 function hasProgress() {
-  return progress.unlockedLevel > 1 || progress.completed.length > 0;
+  return progress.unlockedLevel > 1 || progress.completed.length > 0 || Object.keys(progress.runs || {}).length > 0;
 }
 
 function renderHome() {
@@ -293,7 +335,7 @@ function renderLevelCard(level) {
 
 function startLevel(levelId) {
   currentLevel = levels.find((level) => level.id === levelId);
-  resetRunState();
+  loadRunState(levelId);
   addNote("当前目标", currentLevel.goal, true);
   renderGame();
   showModal({
@@ -305,6 +347,7 @@ function startLevel(levelId) {
 }
 
 function renderGame() {
+  saveRunSnapshot();
   app.innerHTML = `
     <section class="screen game-screen">
       <header class="game-header">
@@ -380,6 +423,7 @@ function handleSceneObject(objectId) {
 function addNote(title, text, silent = false) {
   if (!levelState.notes.some((note) => note.title === title)) {
     levelState.notes.push({ title, text });
+    saveRunSnapshot();
     if (!silent) showToast("线索已加入笔记。");
   }
 }
@@ -404,6 +448,7 @@ function showNotes() {
 function showLayeredHint() {
   const hintIndex = Math.min(levelState.hintIndex, currentLevel.hints.length - 1);
   levelState.hintIndex = Math.min(levelState.hintIndex + 1, currentLevel.hints.length);
+  saveRunSnapshot();
   showModal({
     eyebrow: `提示 ${hintIndex + 1} / ${currentLevel.hints.length}`,
     title: "别急，线索已经在房间里",
@@ -451,6 +496,7 @@ function checkPassword(lockId, lock) {
 function addItem(id, message) {
   if (!inventory.includes(id)) {
     inventory.push(id);
+    saveRunSnapshot();
     showToast(message);
   } else {
     showToast("这个道具已经在背包里了。");
@@ -459,16 +505,19 @@ function addItem(id, message) {
 
 function removeItem(id) {
   inventory = inventory.filter((item) => item !== id);
+  saveRunSnapshot();
 }
 
 function returnItems(ids) {
   ids.forEach((id) => {
     if (!inventory.includes(id)) inventory.push(id);
   });
+  saveRunSnapshot();
 }
 
 function selectInventoryItem(id) {
   selectedItem = selectedItem === id ? null : id;
+  saveRunSnapshot();
   renderGame();
 }
 
@@ -477,6 +526,7 @@ function completeLevel(levelId) {
     progress.completed.push(levelId);
   }
   progress.unlockedLevel = Math.max(progress.unlockedLevel, Math.min(levelId + 1, levels.length));
+  clearRunSnapshot(levelId);
   saveProgress();
 
   showModal({

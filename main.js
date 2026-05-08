@@ -1,4 +1,6 @@
 const STORAGE_KEY = "midnight-cabin-progress-v1";
+const debugHotspots = false;
+const hotspotColors = ["#ffd27a", "#8fc9ff", "#a9e6c3", "#f7a8c8", "#c8b6ff", "#ff9f7a", "#8ff0df", "#f5e38f", "#b9f18d"];
 
 const inventoryConfig = {
   scissors: { id: "scissors", label: "剪刀", icon: "✂️" },
@@ -16,6 +18,7 @@ const levels = [
     icon: "🏪",
     intro: "凌晨 2:17，一家还亮着灯的便利店。外面下着雨，门口的自动门忽然锁住了。",
     goal: "打开后门电子锁。",
+    sceneImage: "assets/scenes/store.png",
     sceneClass: "scene-store",
     handler: "store",
     story: "后门打开的一瞬间，雨声变得清楚。你回头看见收银台上的小票慢慢摊开，上面写着：谢谢你替我关上这家店。",
@@ -39,6 +42,14 @@ const levels = [
       { id: "cashier", label: "收银台", icon: "💳", x: 78, y: 74 },
       { id: "backDoor", label: "后门锁", icon: "🔐", x: 18, y: 70 }
     ],
+  hotspots: [
+  { id: "receipt", label: "小票", x: 56.1, y: 72.3, width: 18.0, height: 8.0, priority: 90 },
+  { id: "fridge", label: "冰柜", targetObjectId: "freezer", x: 0.0, y: 24.2, width: 26.0, height: 36.0, priority: 40 },
+  { id: "shelf", label: "货架", x: 27.0, y: 27.1, width: 25.0, height: 31.6, priority: 30 },
+  { id: "umbrella", label: "雨伞架", x: 78.8, y: 39.6, width: 16.0, height: 24.0, priority: 70 },
+  { id: "doorLock", label: "门锁", targetObjectId: "backDoor", x: 53.7, y: 24.2, width: 20.7, height: 33.2, priority: 95 },
+  { id: "cashier", label: "收银台", x: 0.0, y: 63.3, width: 38.0, height: 22.0, priority: 20 }
+],
     passwordLocks: {
       backDoor: { password: "3582", fail: "电子锁低低闪了一下，顺序还没有对上。" }
     }
@@ -49,6 +60,7 @@ const levels = [
     icon: "🌿",
     intro: "雨声落在玻璃顶上，花房里有一只空花瓶。门锁上写着：让枯萎的花重新开一次。",
     goal: "打开花房玻璃门。",
+    sceneImage: "assets/scenes/greenhouse.png",
     sceneClass: "scene-greenhouse",
     handler: "greenhouse",
     story: "三朵花在雨声里慢慢展开。玻璃门上的雾气散开，露出一句话：有些等待，并不是没有结果。",
@@ -73,7 +85,18 @@ const levels = [
       { id: "pinkFlower", label: "粉花", icon: "🌸", x: 70, y: 68 },
       { id: "vase", label: "花瓶", icon: "🏺", x: 48, y: 68 },
       { id: "glassDoor", label: "玻璃门", icon: "🚪", x: 48, y: 18 }
-    ]
+    ],
+    hotspots: [
+  { id: "pot", label: "花盆", x: 4.2, y: 62.7, width: 22.4, height: 8.6, priority: 55 },
+  { id: "branches", label: "枯枝", x: 72.2, y: 27.7, width: 25.9, height: 12.5, priority: 65 },
+  { id: "blueFlower", label: "蓝花", x: 72.0, y: 40.9, width: 26.7, height: 13.3, priority: 85 },
+  { id: "whiteFlower", label: "白花", x: 72.5, y: 54.2, width: 26.0, height: 13.5, priority: 85 },
+  { id: "pinkFlower", label: "粉花", x: 73.9, y: 69.1, width: 25.3, height: 10.6, priority: 85 },
+  { id: "vase", label: "花瓶", x: 42.2, y: 60.6, width: 13.2, height: 13.3, priority: 90 },
+  { id: "calendar", label: "日历", x: 4.1, y: 27.9, width: 17.3, height: 14.8, priority: 75 },
+  { id: "flowerCard", label: "花语卡", x: 4.2, y: 51.8, width: 24.9, height: 9.7, priority: 80 },
+  { id: "glassDoor", label: "玻璃门", x: 42.0, y: 28.9, width: 28.8, height: 32.6, priority: 25 }
+]
   },
   {
     id: 3,
@@ -81,6 +104,7 @@ const levels = [
     icon: "🛏️",
     intro: "房间很整洁，整洁得有些不自然。桌上有一本没有写完的日记，门边的抽屉上有一把密码锁。",
     goal: "打开抽屉，获得钥匙，再开门。",
+    sceneImage: "assets/scenes/bedroom.png",
     sceneClass: "scene-bedroom",
     handler: "bedroom",
     story: "门开了，风从走廊吹进来。日记本翻到最后一页，上面写着：谢谢你替我把那盏灯打开。",
@@ -103,6 +127,14 @@ const levels = [
       { id: "drawer", label: "抽屉", icon: "🗄️", x: 28, y: 72 },
       { id: "door", label: "房门", icon: "🚪", x: 74, y: 56 }
     ],
+   hotspots: [
+  { id: "diary", label: "日记", x: 12.9, y: 70.6, width: 45.0, height: 15.1, priority: 85 },
+  { id: "lamp", label: "床头灯", x: 32.8, y: 30.7, width: 14.8, height: 14.7, priority: 80 },
+  { id: "frame", label: "相框", x: 53.8, y: 24.1, width: 14.9, height: 10.4, priority: 70 },
+  { id: "musicBox", label: "音乐盒", x: 59.0, y: 41.1, width: 39.2, height: 10.1, priority: 80 },
+  { id: "drawer", label: "抽屉", x: 60.7, y: 50.7, width: 34.4, height: 21.3, priority: 75 },
+  { id: "roomDoor", label: "房门", targetObjectId: "door", x: 71.1, y: 13.6, width: 22.7, height: 27.8, priority: 25 }
+],
     passwordLocks: {
       drawer: { password: "0416", fail: "锁芯没有反应，数字之间还少了一点联系。" }
     }
@@ -113,6 +145,7 @@ const levels = [
     icon: "📚",
     intro: "凌晨的旧书店没有店员，柜台上放着一本借阅登记册。门口的卷帘门被锁住，旁边有一个四位数字锁。",
     goal: "找到卷帘门密码，离开书店。",
+    sceneImage: "assets/scenes/bookstore.png",
     sceneClass: "scene-bookstore",
     handler: "bookstore",
     story: "卷帘门缓缓升起，风吹动柜台上的登记册。最后一行多了一句话：有些故事，读完才算离开。",
@@ -137,6 +170,14 @@ const levels = [
       { id: "counterNote", label: "便签", icon: "📝", x: 42, y: 72 },
       { id: "shutterLock", label: "卷帘门锁", icon: "🔐", x: 20, y: 78 }
     ],
+    hotspots: [
+  { id: "register", label: "借阅登记册", x: 16.6, y: 59.2, width: 39.7, height: 13.6, priority: 80 },
+  { id: "categorySign", label: "分类牌", targetObjectId: "category", x: 8.8, y: 7.1, width: 34.0, height: 12.0, priority: 70 },
+  { id: "note", label: "柜台便签", targetObjectId: "counterNote", x: 59.5, y: 62.7, width: 16.0, height: 10.0, priority: 90 },
+  { id: "bookshelf", label: "书架", x: 80.9, y: 16.4, width: 19.1, height: 43.5, priority: 10 },
+  { id: "shutterLock", label: "卷帘门锁", x: 70.1, y: 32.9, width: 3.0, height: 13.2, priority: 95 },
+  { id: "shutter", label: "卷帘门", x: 43.5, y: 21.0, width: 29.7, height: 31.6, priority: 20 }
+],
     passwordLocks: {
       shutterLock: { password: "3142", fail: "锁面没有亮起。也许门锁不认书名，只认顺序。" }
     }
@@ -147,6 +188,7 @@ const levels = [
     icon: "📷",
     intro: "墙上挂满了没有人脸的照片，暗房门口有一把密码锁。红色安全灯轻轻闪烁。",
     goal: "打开暗房门。",
+    sceneImage: "assets/scenes/photo-studio.png",
     sceneClass: "scene-studio",
     handler: "studio",
     story: "暗房门打开，红色灯光慢慢熄灭。照片上的空白位置，终于显出一个模糊的背影。",
@@ -166,6 +208,14 @@ const levels = [
       { id: "frameBack", label: "相框背面", icon: "🔍", x: 70, y: 32 },
       { id: "developer", label: "显影液", icon: "🧪", x: 28, y: 68 },
       { id: "darkroomDoor", label: "暗房门", icon: "🚪", x: 72, y: 68 }
+    ],
+    hotspots: [
+      { id: "photos", label: "墙上照片", x: 12, y: 19, width: 48, height: 28, priority: 25 },
+      { id: "frameBack", label: "相框背面", x: 55, y: 22, width: 22, height: 20, priority: 80 },
+      { id: "developerLiquid", label: "显影液", targetObjectId: "developer", x: 20, y: 65, width: 28, height: 18, priority: 75 },
+      { id: "darkroomLock", label: "暗房门锁", targetObjectId: "darkroomDoor", x: 76, y: 52, width: 12, height: 14, priority: 95 },
+      { id: "darkroomDoor", label: "暗房门", x: 68, y: 28, width: 24, height: 42, priority: 20 },
+      { id: "redLamp", label: "红色安全灯", x: 43, y: 8, width: 18, height: 12, priority: 85 }
     ],
     passwordLocks: {
       darkroomDoor: { password: "2143", fail: "红灯闪了一下。你也许又按成了时间顺序。" }
@@ -187,6 +237,8 @@ let selectedItem = null;
 let inventory = [];
 let levelState = {};
 let toastTimer = null;
+let hotspotDrag = null;
+let suppressNextHotspotClick = false;
 
 function loadProgress() {
   const fallback = { unlockedLevel: 1, completed: [], runs: {} };
@@ -216,7 +268,7 @@ function getDefaultRunState() {
   return {
     selectedItem: null,
     inventory: [],
-    levelState: { notes: [], hintIndex: 0 }
+    levelState: { notes: [], hintIndex: 0, hotspotsClicked: {} }
   };
 }
 
@@ -236,10 +288,11 @@ function loadRunState(levelId) {
   inventory = Array.isArray(saved.inventory) ? [...saved.inventory] : [];
   selectedItem = inventory.includes(saved.selectedItem) ? saved.selectedItem : null;
   levelState = saved.levelState && typeof saved.levelState === "object"
-    ? { notes: [], hintIndex: 0, ...saved.levelState }
-    : { notes: [], hintIndex: 0 };
+    ? { notes: [], hintIndex: 0, hotspotsClicked: {}, ...saved.levelState }
+    : { notes: [], hintIndex: 0, hotspotsClicked: {} };
   if (!Array.isArray(levelState.notes)) levelState.notes = [];
   if (typeof levelState.hintIndex !== "number") levelState.hintIndex = 0;
+  if (!levelState.hotspotsClicked || typeof levelState.hotspotsClicked !== "object") levelState.hotspotsClicked = {};
 }
 
 function saveRunSnapshot() {
@@ -347,9 +400,13 @@ function startLevel(levelId) {
 }
 
 function renderGame() {
+  const showSceneTouchHint = !levelState.sceneHintSeen;
+  levelState.sceneHintSeen = true;
   saveRunSnapshot();
+  const hotspots = getLevelHotspots();
   app.innerHTML = `
     <section class="screen game-screen">
+      ${debugHotspots ? '<div class="debug-mode-badge">热区调试模式</div>' : ""}
       <header class="game-header">
         <div class="game-title">
           <h2>${currentLevel.title}</h2>
@@ -360,15 +417,21 @@ function renderGame() {
           <button class="small-icon-btn" data-action="levels" aria-label="返回关卡选择">↩</button>
         </div>
       </header>
-      <div class="scene-card ${currentLevel.sceneClass}">
+      <div class="scene-card scene-image-card ${currentLevel.sceneClass} ${debugHotspots ? "debug-hotspots" : ""}">
         <div class="scene-visual">
-          <div class="rain"></div>
-          <div class="scene-light"></div>
-          <div class="scene-floor"></div>
-          ${renderSceneDetails()}
+          <img class="scene-image" src="${currentLevel.sceneImage}" alt="${currentLevel.title}场景" onerror="this.closest('.scene-card').classList.add('image-error'); this.remove();">
+          <div class="scene-fallback">
+            <strong>${currentLevel.title}</strong>
+            <span>场景图片加载失败，请检查 ${currentLevel.sceneImage}</span>
+          </div>
+          <div class="scene-vignette"></div>
+          ${showSceneTouchHint ? '<div class="scene-touch-hint" aria-hidden="true"></div>' : ""}
         </div>
-        ${currentLevel.objects.map(renderSceneObject).join("")}
+        <div class="hotspot-layer">
+          ${hotspots.map((hotspot, index) => renderHotspot(hotspot, index)).join("")}
+        </div>
       </div>
+      ${debugHotspots ? renderHotspotEditorPanel(hotspots) : ""}
       <button class="hint-btn" data-action="hint" aria-label="提示">?</button>
       ${renderInventory()}
     </section>
@@ -415,9 +478,20 @@ function renderInventoryItem(id) {
   `;
 }
 
-function handleSceneObject(objectId) {
+function handleSceneObject(objectId, hotspotId = objectId) {
+  levelState.hotspotsClicked = levelState.hotspotsClicked || {};
+  levelState.hotspotsClicked[hotspotId] = true;
+  saveRunSnapshot();
   const handler = levelHandlers[currentLevel.handler];
   handler?.(objectId);
+}
+
+function triggerHotspotFeedback(button) {
+  if (!button) return;
+  button.classList.remove("is-rippling");
+  void button.offsetWidth;
+  button.classList.add("is-rippling");
+  setTimeout(() => button.classList.remove("is-rippling"), 420);
 }
 
 function addNote(title, text, silent = false) {
@@ -426,6 +500,75 @@ function addNote(title, text, silent = false) {
     saveRunSnapshot();
     if (!silent) showToast("线索已加入笔记。");
   }
+}
+
+function getLevelHotspots() {
+  return currentLevel.hotspots || currentLevel.objects;
+}
+
+function getHotspotPriority(hotspot) {
+  if (typeof hotspot.priority === "number") return hotspot.priority;
+  const area = Math.max(0.1, Number(hotspot.width || 0) * Number(hotspot.height || 0));
+  return Math.max(1, 10000 / area);
+}
+
+function getHotspotZIndex(hotspot) {
+  return Math.round(getHotspotPriority(hotspot) * 100 + Math.max(0, 10000 - ((hotspot.width || 0) * (hotspot.height || 0))));
+}
+
+function formatHotspotNumber(value) {
+  return Number(value).toFixed(1);
+}
+
+function renderHotspot(hotspot, index = 0) {
+  const used = isHotspotUsed(hotspot) ? "used" : "";
+  const color = hotspotColors[index % hotspotColors.length];
+  return `
+    <button class="hotspot ${used}" data-hotspot="${hotspot.id}" data-object="${hotspot.targetObjectId || hotspot.id}" aria-label="${hotspot.label}" style="left:${hotspot.x}%;top:${hotspot.y}%;width:${hotspot.width}%;height:${hotspot.height}%;z-index:${getHotspotZIndex(hotspot)};--hotspot-color:${color}">
+      <span class="hotspot-label">${hotspot.id} | ${hotspot.label}</span>
+      <span class="hotspot-id">${hotspot.id}</span>
+      ${debugHotspots ? '<span class="hotspot-resize" data-resize-handle="true" aria-hidden="true"></span>' : ""}
+    </button>
+  `;
+}
+
+function isHotspotUsed(hotspot) {
+  const clicked = levelState.hotspotsClicked || {};
+  return Boolean(clicked[hotspot.id] || levelState[hotspot.targetObjectId || hotspot.id]);
+}
+
+function renderHotspotEditorPanel(hotspots) {
+  return `
+    <section class="hotspot-editor" aria-label="热区校准面板">
+      <div class="hotspot-editor-head">
+        <div>
+          <strong>Hotspot Editor</strong>
+          <span>拖动矩形移动，拖右下角缩放。</span>
+        </div>
+        <button class="copy-hotspots-btn" data-action="copy-hotspots">复制当前关卡热区配置</button>
+      </div>
+      <div class="hotspot-table">
+        <div class="hotspot-table-row hotspot-table-title">
+          <span>id</span><span>label</span><span>x</span><span>y</span><span>width</span><span>height</span>
+        </div>
+        ${hotspots.map(renderHotspotPanelRow).join("")}
+      </div>
+      <textarea class="hotspot-copy-fallback" readonly hidden></textarea>
+    </section>
+  `;
+}
+
+function renderHotspotPanelRow(hotspot) {
+  return `
+    <div class="hotspot-table-row" data-hotspot-row="${hotspot.id}">
+      <span>${hotspot.id}</span>
+      <span>${hotspot.label}</span>
+      <span data-field="x">${formatHotspotNumber(hotspot.x)}</span>
+      <span data-field="y">${formatHotspotNumber(hotspot.y)}</span>
+      <span data-field="width">${formatHotspotNumber(hotspot.width)}</span>
+      <span data-field="height">${formatHotspotNumber(hotspot.height)}</span>
+    </div>
+  `;
 }
 
 function showNotes() {
@@ -486,11 +629,20 @@ function showPasswordModal(lockId) {
 function checkPassword(lockId, lock) {
   const input = document.querySelector("#password-input");
   if (!input || input.value !== lock.password) {
+    const card = modal.querySelector(".modal-card");
+    card?.classList.remove("password-error");
+    void card?.offsetWidth;
+    card?.classList.add("password-error");
     showToast(lock.fail);
     return;
   }
-  closeModal();
-  levelHandlers[currentLevel.handler]?.(`${lockId}:success`);
+  const card = modal.querySelector(".modal-card");
+  card?.classList.add("password-success");
+  setTimeout(() => {
+    card?.classList.remove("password-success");
+    closeModal();
+    levelHandlers[currentLevel.handler]?.(`${lockId}:success`);
+  }, 260);
 }
 
 function addItem(id, message) {
@@ -533,7 +685,7 @@ function completeLevel(levelId) {
     eyebrow: "推理完成",
     title: currentLevel.title,
     text: `${currentLevel.successText}\n\n${currentLevel.story}`,
-    extra: '<p class="share-tip">可以停在这一刻截图，分享你刚打开的这扇门。</p>',
+    extra: '<p class="chapter-tip">这一章已经结束。你可以继续下一扇门，也可以回到关卡选择。</p>',
     actions: [
       {
         label: levelId < levels.length ? "进入下一关" : "回到关卡选择",
@@ -700,6 +852,11 @@ const levelHandlers = {
       life: { title: "生活架", text: "生活书架上有一个空位，数字是 4。", note: { title: "生活架空位", text: "生活 B 的空位数字是 4。" } },
       plant: { title: "植物架", text: "植物书架上有一个空位，数字是 1。", note: { title: "植物架空位", text: "植物 C 的空位数字是 1。" } },
       travel: { title: "旅行架", text: "旅行书架上有一个空位，数字是 2。", note: { title: "旅行架空位", text: "旅行 D 的空位数字是 2。" } },
+      bookshelf: {
+        title: "左右书架",
+        text: "四个分类书架各有一个空位：小说 A 是 3，植物 C 是 1，生活 B 是 4，旅行 D 是 2。",
+        note: { title: "书架空位", text: "A=3，C=1，B=4，D=2；要结合归还顺序。" }
+      },
       counterNote: { title: "柜台便签", text: "门锁只认归还顺序，不认书名。", note: { title: "柜台便签", text: "门锁只认归还顺序。" } }
     };
     if (objectId === "shutterLock") {
@@ -708,6 +865,10 @@ const levelHandlers = {
     }
     if (objectId === "shutterLock:success") {
       completeLevel(4);
+      return;
+    }
+    if (objectId === "shutter") {
+      showClue("卷帘门", "卷帘门被锁住了，旁边的数字锁还没有打开。");
       return;
     }
     showClue(clues[objectId].title, clues[objectId].text, clues[objectId].note);
@@ -729,6 +890,11 @@ const levelHandlers = {
         title: "显影液",
         text: "标签写着：便利店之后，是花房；花房之后，是卧室；卧室之后，才是书店。旁边又补了一句：卧室的早晨，门外有一把雨伞。",
         note: { title: "显影液标签", text: "故事顺序指向：便利店 → 花房 → 卧室/早餐桌 → 雨伞。" }
+      },
+      redLamp: {
+        title: "红色安全灯",
+        text: "红灯只是在提醒你：这里看重照片显影后的顺序，不看拍摄时间。",
+        note: { title: "红色安全灯", text: "不要被照片时间误导，按故事顺序整理。" }
       }
     };
     if (objectId === "darkroomDoor") {
@@ -784,6 +950,7 @@ function useVase() {
 }
 
 function showModal({ eyebrow = "", title, text, extra = "", actions }) {
+  modal.querySelector(".modal-card")?.classList.remove("password-error", "password-success");
   modalEyebrow.textContent = eyebrow;
   modalTitle.textContent = title;
   modalText.textContent = text;
@@ -818,10 +985,141 @@ function resetProgress() {
   renderHome();
 }
 
+function findCurrentHotspot(id) {
+  return getLevelHotspots().find((hotspot) => hotspot.id === id);
+}
+
+function clampHotspot(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
+function roundHotspotValue(value) {
+  return Math.round(value * 10) / 10;
+}
+
+function updateHotspotElement(element, hotspot) {
+  element.style.left = `${hotspot.x}%`;
+  element.style.top = `${hotspot.y}%`;
+  element.style.width = `${hotspot.width}%`;
+  element.style.height = `${hotspot.height}%`;
+  element.style.zIndex = getHotspotZIndex(hotspot);
+}
+
+function updateHotspotPanelRow(hotspot) {
+  const row = document.querySelector(`[data-hotspot-row="${hotspot.id}"]`);
+  if (!row) return;
+  ["x", "y", "width", "height"].forEach((field) => {
+    const cell = row.querySelector(`[data-field="${field}"]`);
+    if (cell) cell.textContent = formatHotspotNumber(hotspot[field]);
+  });
+}
+
+function startHotspotDrag(event) {
+  if (!debugHotspots || !currentLevel) return;
+  const button = event.target.closest("[data-hotspot]");
+  if (!button) return;
+  const hotspot = findCurrentHotspot(button.dataset.hotspot);
+  const scene = button.closest(".scene-card");
+  if (!hotspot || !scene) return;
+
+  event.preventDefault();
+  event.stopPropagation();
+
+  const sceneRect = scene.getBoundingClientRect();
+  const mode = event.target.closest("[data-resize-handle]") ? "resize" : "move";
+  hotspotDrag = {
+    mode,
+    button,
+    hotspot,
+    sceneRect,
+    pointerId: event.pointerId,
+    startClientX: event.clientX,
+    startClientY: event.clientY,
+    startX: Number(hotspot.x),
+    startY: Number(hotspot.y),
+    startWidth: Number(hotspot.width),
+    startHeight: Number(hotspot.height),
+    moved: false
+  };
+  button.classList.add("editing");
+  button.setPointerCapture?.(event.pointerId);
+}
+
+function moveHotspotDrag(event) {
+  if (!hotspotDrag || event.pointerId !== hotspotDrag.pointerId) return;
+  event.preventDefault();
+
+  const dx = ((event.clientX - hotspotDrag.startClientX) / hotspotDrag.sceneRect.width) * 100;
+  const dy = ((event.clientY - hotspotDrag.startClientY) / hotspotDrag.sceneRect.height) * 100;
+  if (Math.abs(dx) > 0.2 || Math.abs(dy) > 0.2) hotspotDrag.moved = true;
+
+  if (hotspotDrag.mode === "resize") {
+    hotspotDrag.hotspot.width = roundHotspotValue(clampHotspot(hotspotDrag.startWidth + dx, 3, Math.max(3, 100 - hotspotDrag.hotspot.x)));
+    hotspotDrag.hotspot.height = roundHotspotValue(clampHotspot(hotspotDrag.startHeight + dy, 3, Math.max(3, 100 - hotspotDrag.hotspot.y)));
+  } else {
+    hotspotDrag.hotspot.x = roundHotspotValue(clampHotspot(hotspotDrag.startX + dx, 0, Math.max(0, 100 - hotspotDrag.hotspot.width)));
+    hotspotDrag.hotspot.y = roundHotspotValue(clampHotspot(hotspotDrag.startY + dy, 0, Math.max(0, 100 - hotspotDrag.hotspot.height)));
+  }
+
+  updateHotspotElement(hotspotDrag.button, hotspotDrag.hotspot);
+  updateHotspotPanelRow(hotspotDrag.hotspot);
+}
+
+function endHotspotDrag(event) {
+  if (!hotspotDrag || event.pointerId !== hotspotDrag.pointerId) return;
+  if (!hotspotDrag.moved) {
+    console.log(`clicked hotspot: ${hotspotDrag.hotspot.id} ${hotspotDrag.hotspot.label}`);
+  }
+  hotspotDrag.button.classList.remove("editing");
+  hotspotDrag.button.releasePointerCapture?.(event.pointerId);
+  suppressNextHotspotClick = true;
+  hotspotDrag = null;
+}
+
+function serializeCurrentHotspots() {
+  const lines = getLevelHotspots().map((hotspot) => {
+    const fields = [
+      `id: "${hotspot.id}"`,
+      `label: "${hotspot.label}"`,
+      hotspot.targetObjectId ? `targetObjectId: "${hotspot.targetObjectId}"` : "",
+      `x: ${formatHotspotNumber(hotspot.x)}`,
+      `y: ${formatHotspotNumber(hotspot.y)}`,
+      `width: ${formatHotspotNumber(hotspot.width)}`,
+      `height: ${formatHotspotNumber(hotspot.height)}`,
+      typeof hotspot.priority === "number" ? `priority: ${hotspot.priority}` : ""
+    ].filter(Boolean).join(", ");
+    return `  { ${fields} }`;
+  });
+  return `hotspots: [\n${lines.join(",\n")}\n]`;
+}
+
+function copyCurrentHotspots() {
+  const text = serializeCurrentHotspots();
+  const fallback = document.querySelector(".hotspot-copy-fallback");
+  const showFallback = () => {
+    if (!fallback) return;
+    fallback.hidden = false;
+    fallback.value = text;
+    fallback.focus();
+    fallback.select();
+    showToast("浏览器未允许自动复制，请手动复制文本框内容。");
+  };
+
+  if (navigator.clipboard?.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast("当前关卡热区配置已复制。"))
+      .catch(showFallback);
+  } else {
+    showFallback();
+  }
+}
+
 app.addEventListener("click", (event) => {
   const action = event.target.closest("[data-action]")?.dataset.action;
   const level = event.target.closest("[data-level]")?.dataset.level;
-  const object = event.target.closest("[data-object]")?.dataset.object;
+  const hotspotButton = event.target.closest("[data-hotspot]");
+  const hotspot = hotspotButton?.dataset.hotspot;
+  const object = hotspotButton?.dataset.object || event.target.closest("[data-object]")?.dataset.object;
   const inventoryItem = event.target.closest("[data-inventory]")?.dataset.inventory;
 
   if (action === "start" || action === "continue") renderLevelSelect();
@@ -830,10 +1128,26 @@ app.addEventListener("click", (event) => {
   if (action === "hint" && currentLevel) showLayeredHint();
   if (action === "notes" && currentLevel) showNotes();
   if (action === "reset") resetProgress();
+  if (action === "copy-hotspots" && currentLevel) copyCurrentHotspots();
   if (level) startLevel(Number(level));
-  if (object) handleSceneObject(object);
+  if (object) {
+    if (debugHotspots) {
+      if (suppressNextHotspotClick) {
+        suppressNextHotspotClick = false;
+        return;
+      }
+      return;
+    }
+    triggerHotspotFeedback(hotspotButton);
+    handleSceneObject(object, hotspot || object);
+  }
   if (inventoryItem) selectInventoryItem(inventoryItem);
 });
+
+app.addEventListener("pointerdown", startHotspotDrag);
+app.addEventListener("pointermove", moveHotspotDrag);
+app.addEventListener("pointerup", endHotspotDrag);
+app.addEventListener("pointercancel", endHotspotDrag);
 
 modalActions.addEventListener("click", (event) => {
   const button = event.target.closest("[data-modal-action]");

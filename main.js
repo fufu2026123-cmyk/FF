@@ -1,6 +1,7 @@
 const STORAGE_KEY = "midnight-cabin-progress-v1";
 const debugHotspots = false;
 const hotspotColors = ["#ffd27a", "#8fc9ff", "#a9e6c3", "#f7a8c8", "#c8b6ff", "#ff9f7a", "#8ff0df", "#f5e38f", "#b9f18d"];
+const appBaseUrl = new URL(".", document.currentScript?.src || window.location.href).href;
 
 const inventoryConfig = {
   scissors: { id: "scissors", label: "剪刀", icon: "✂️" },
@@ -404,6 +405,7 @@ function renderGame() {
   levelState.sceneHintSeen = true;
   saveRunSnapshot();
   const hotspots = getLevelHotspots();
+  const sceneImageUrl = getAssetUrl(currentLevel.sceneImage);
   app.innerHTML = `
     <section class="screen game-screen">
       ${debugHotspots ? '<div class="debug-mode-badge">热区调试模式</div>' : ""}
@@ -419,7 +421,7 @@ function renderGame() {
       </header>
       <div class="scene-card scene-image-card ${currentLevel.sceneClass} ${debugHotspots ? "debug-hotspots" : ""}">
         <div class="scene-visual">
-          <img class="scene-image" src="${currentLevel.sceneImage}" alt="${currentLevel.title}场景" onerror="this.closest('.scene-card').classList.add('image-error'); this.remove();">
+          <img class="scene-image" src="${sceneImageUrl}" alt="${currentLevel.title}场景" onerror="this.closest('.scene-card').classList.add('image-error'); this.remove();">
           <div class="scene-fallback">
             <strong>${currentLevel.title}</strong>
             <span>场景图片加载失败，请检查 ${currentLevel.sceneImage}</span>
@@ -452,6 +454,10 @@ function renderSceneObject(object) {
       <span class="item-label">${object.label}</span>
     </button>
   `;
+}
+
+function getAssetUrl(path) {
+  return new URL(path, appBaseUrl).href;
 }
 
 function renderInventory() {

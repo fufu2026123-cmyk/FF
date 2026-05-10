@@ -565,6 +565,179 @@ h1 {
     linear-gradient(180deg, rgba(42, 39, 72, 0.94), rgba(17, 18, 42, 0.94));
   color: rgba(255, 249, 238, 0.82);
   text-align: center;
+  overflow: hidden;
+}
+
+/* ===== 新关卡 Fallback 视觉增强 ===== */
+/* 第6关：清晨食堂 - 蒸笼热气 + 暖黄灯光 */
+.scene-restaurant.image-error .scene-fallback {
+  background:
+    radial-gradient(ellipse 60% 20% at 50% 100%, rgba(255, 200, 100, 0.3), transparent 70%),
+    radial-gradient(ellipse 80% 15% at 50% 80%, rgba(255, 180, 80, 0.2), transparent 60%),
+    radial-gradient(circle at 30% 20%, rgba(255, 210, 122, 0.15), transparent 30%),
+    linear-gradient(180deg, rgba(68, 52, 38, 0.95), rgba(32, 24, 18, 0.95));
+}
+.scene-restaurant.image-error .scene-fallback::before {
+  content: "";
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 50px;
+  background: radial-gradient(ellipse, rgba(255, 240, 200, 0.7), rgba(255, 220, 150, 0.3) 60%, transparent 80%);
+  filter: blur(8px);
+  animation: steamRise 3s ease-in-out infinite;
+}
+.scene-restaurant.image-error .scene-fallback::after {
+  content: "🍜";
+  position: absolute;
+  bottom: 32%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 48px;
+  filter: drop-shadow(0 0 12px rgba(255, 200, 100, 0.5));
+}
+
+/* 第7关：雨天邮局 - 蓝色雨幕 + 邮政氛围 */
+.scene-postoffice.image-error .scene-fallback {
+  background:
+    radial-gradient(circle at 25% 15%, rgba(143, 201, 255, 0.2), transparent 25%),
+    linear-gradient(180deg, rgba(52, 48, 76, 0.95), rgba(22, 20, 45, 0.95));
+}
+.scene-postoffice.image-error .scene-fallback::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      100deg,
+      transparent 0px,
+      transparent 8px,
+      rgba(143, 201, 255, 0.08) 8px,
+      rgba(143, 201, 255, 0.08) 9px
+    );
+  animation: rainFall 0.8s linear infinite;
+}
+.scene-postoffice.image-error .scene-fallback::after {
+  content: "📮";
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 48px;
+  filter: drop-shadow(0 4px 12px rgba(143, 201, 255, 0.4));
+}
+
+/* 第8关：灯塔码头 - 海风吹拂 + 灯塔光束 */
+.scene-lighthouse.image-error .scene-fallback {
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255, 210, 122, 0.35), transparent 20%),
+    radial-gradient(ellipse 30% 60% at 50% 20%, rgba(255, 230, 180, 0.1), transparent 60%),
+    linear-gradient(180deg, rgba(62, 78, 102, 0.95), rgba(18, 28, 52, 0.95));
+}
+.scene-lighthouse.image-error .scene-fallback::before {
+  content: "";
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 90px;
+  background: linear-gradient(180deg, rgba(255, 210, 122, 0.9), rgba(255, 180, 80, 0.3) 70%, transparent 100%);
+  clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%);
+  filter: blur(2px);
+  animation: lighthouseGlow 2s ease-in-out infinite;
+}
+.scene-lighthouse.image-error .scene-fallback::after {
+  content: "🏝️";
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 48px;
+  filter: drop-shadow(0 0 16px rgba(255, 210, 122, 0.4));
+}
+
+/* 第9关：守夜人档案室 - 照片墙 + 暖红灯光 */
+.scene-archive.image-error .scene-fallback {
+  background:
+    radial-gradient(circle at 70% 15%, rgba(247, 168, 200, 0.2), transparent 25%),
+    linear-gradient(180deg, rgba(58, 48, 78, 0.95), rgba(22, 18, 44, 0.95));
+}
+.scene-archive.image-error .scene-fallback::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 15%;
+  width: 70%;
+  height: 40%;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 28px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+.scene-archive.image-error .scene-fallback::after {
+  content: "🗂️";
+  position: absolute;
+  bottom: 28%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 48px;
+  filter: drop-shadow(0 4px 12px rgba(247, 168, 200, 0.4));
+}
+
+/* 第10关：永恒守夜人 - 夜空 + 煤油灯柔光 */
+.scene-finale.image-error .scene-fallback {
+  background:
+    radial-gradient(circle at 50% 60%, rgba(255, 210, 122, 0.2), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(143, 201, 255, 0.1), transparent 25%),
+    linear-gradient(180deg, rgba(26, 22, 50, 0.97), rgba(14, 12, 32, 0.97));
+}
+.scene-finale.image-error .scene-fallback::before {
+  content: "";
+  position: absolute;
+  top: 15%;
+  right: 20%;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 240, 200, 0.9), rgba(255, 200, 100, 0.4) 60%, transparent 80%);
+  filter: blur(2px);
+  box-shadow: 0 0 30px rgba(255, 210, 122, 0.5);
+  animation: candleFlicker 1.5s ease-in-out infinite alternate;
+}
+.scene-finale.image-error .scene-fallback::after {
+  content: "🌙";
+  position: absolute;
+  bottom: 28%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 52px;
+  filter: drop-shadow(0 0 20px rgba(255, 210, 122, 0.4));
+}
+
+/* 新关卡动画 */
+@keyframes steamRise {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0) scale(1); }
+  50% { opacity: 0.9; transform: translateX(-50%) translateY(-8px) scale(1.1); }
+}
+
+@keyframes rainFall {
+  0% { background-position: 0 0; }
+  100% { background-position: 20px 40px; }
+}
+
+@keyframes lighthouseGlow {
+  0%, 100% { opacity: 0.7; filter: blur(2px); }
+  50% { opacity: 1; filter: blur(4px); }
+}
+
+@keyframes candleFlicker {
+  0% { opacity: 0.85; transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1.02); }
 }
 
 .scene-fallback strong {
@@ -1030,6 +1203,33 @@ h1 {
   pointer-events: none;
 }
 
+.combine-hint {
+  margin-bottom: 8px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(255, 210, 122, 0.15);
+  color: rgba(255, 210, 122, 0.9);
+  font-size: 12px;
+  text-align: center;
+}
+
+.combine-btn {
+  margin-top: 8px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ffd27a, #f7a8c8);
+  color: #251638;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.combine-btn:active {
+  transform: scale(0.97);
+}
+
 .inventory-item .item-emoji {
   font-size: 24px;
 }
@@ -1138,6 +1338,13 @@ h1 {
   line-height: 1.55 !important;
 }
 
+.prev-chapter-tip {
+  border-color: rgba(168, 201, 255, 0.28);
+  background: rgba(168, 201, 255, 0.08);
+  color: rgba(168, 201, 255, 0.88) !important;
+  font-style: italic;
+}
+
 .modal-card.password-error {
   animation: passwordShake 240ms ease both;
 }
@@ -1238,4 +1445,1014 @@ h1 {
   .level-state {
     grid-column: 2;
   }
+}
+
+/* ===== 第10关结局选择 ===== */
+.finale-choices {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.finale-choice-btn {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  grid-template-rows: auto auto;
+  gap: 4px 12px;
+  width: 100%;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  text-align: left;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.finale-choice-btn:active {
+  transform: scale(0.97);
+}
+
+.finale-choice-icon {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+}
+
+.finale-choice-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.finale-choice-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.finale-continue {
+  border-color: rgba(255, 210, 122, 0.3);
+  background: linear-gradient(135deg, rgba(255, 210, 122, 0.12), rgba(247, 168, 200, 0.08));
+}
+
+.finale-continue:hover {
+  border-color: rgba(255, 210, 122, 0.5);
+  background: linear-gradient(135deg, rgba(255, 210, 122, 0.18), rgba(247, 168, 200, 0.12));
+}
+
+.finale-leave {
+  border-color: rgba(143, 201, 255, 0.3);
+  background: linear-gradient(135deg, rgba(143, 201, 255, 0.08), rgba(169, 230, 195, 0.08));
+}
+
+.finale-leave:hover {
+  border-color: rgba(143, 201, 255, 0.5);
+  background: linear-gradient(135deg, rgba(143, 201, 255, 0.14), rgba(169, 230, 195, 0.12));
+}
+
+.finale-ending {
+  text-align: center;
+  font-size: 15px !important;
+  color: rgba(255, 249, 238, 0.85) !important;
+}
+
+/* ===== 新场景背景色 ===== */
+.scene-restaurant {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px) 0 0 / 48px 100%,
+    radial-gradient(circle at 64% 18%, rgba(255, 210, 122, 0.24), transparent 22%),
+    linear-gradient(180deg, rgba(68, 52, 38, 0.92), rgba(32, 24, 18, 0.88));
+}
+
+.scene-postoffice {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(143, 201, 255, 0.2), transparent 24%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px) 0 0 / 52px 100%,
+    linear-gradient(180deg, rgba(52, 48, 76, 0.92), rgba(22, 20, 45, 0.9));
+}
+
+.scene-lighthouse {
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255, 210, 122, 0.28), transparent 24%),
+    linear-gradient(180deg, rgba(62, 78, 102, 0.92), rgba(18, 28, 52, 0.9));
+}
+
+.scene-archive {
+  background:
+    radial-gradient(circle at 72% 16%, rgba(247, 168, 200, 0.18), transparent 22%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 44px 100%,
+    linear-gradient(180deg, rgba(58, 48, 78, 0.94), rgba(22, 18, 44, 0.9));
+}
+
+.scene-finale {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 210, 122, 0.16), transparent 40%),
+    linear-gradient(180deg, rgba(26, 22, 50, 0.96), rgba(14, 12, 32, 0.96));
+}
+
+/* ===== 隐藏结局样式 ===== */
+.finale-secret {
+  border-color: rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(247, 168, 200, 0.1));
+  animation: secretGlow 2s ease-in-out infinite;
+}
+
+@keyframes secretGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+}
+
+.finale-secret:hover {
+  border-color: rgba(255, 215, 0, 0.6);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(247, 168, 200, 0.15));
+}
+
+/* 故事碎片展示 */
+.secret-ending-shards {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(255, 215, 0, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.secret-ending-shards > p:first-child {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.7);
+  margin-bottom: 12px;
+}
+
+.shards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shard-item {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.9);
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 215, 0, 0.4);
+}
+
+.ending-progress {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(255, 249, 238, 0.5);
+  text-align: center;
+}
+
+/* ===== 隐藏结局样式 ===== */
+.finale-secret {
+  border-color: rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(247, 168, 200, 0.1));
+  animation: secretGlow 2s ease-in-out infinite;
+}
+
+@keyframes secretGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+}
+
+.finale-secret:hover {
+  border-color: rgba(255, 215, 0, 0.6);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(247, 168, 200, 0.15));
+}
+
+/* 故事碎片展示 */
+.secret-ending-shards {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(255, 215, 0, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.secret-ending-shards > p:first-child {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.7);
+  margin-bottom: 12px;
+}
+
+.shards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shard-item {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.9);
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 215, 0, 0.4);
+}
+
+.ending-progress {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(255, 249, 238, 0.5);
+  text-align: center;
+}
+
+/* ===== 第10关结局选择 ===== */
+.finale-choices {
+  display: grid;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.finale-choice-btn {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  grid-template-rows: auto auto;
+  gap: 4px 12px;
+  width: 100%;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  text-align: left;
+  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+}
+
+.finale-choice-btn:active {
+  transform: scale(0.97);
+}
+
+.finale-choice-icon {
+  grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+  font-size: 28px;
+}
+
+.finale-choice-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.finale-choice-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.finale-continue {
+  border-color: rgba(255, 210, 122, 0.3);
+  background: linear-gradient(135deg, rgba(255, 210, 122, 0.12), rgba(247, 168, 200, 0.08));
+}
+
+.finale-continue:hover {
+  border-color: rgba(255, 210, 122, 0.5);
+  background: linear-gradient(135deg, rgba(255, 210, 122, 0.18), rgba(247, 168, 200, 0.12));
+}
+
+.finale-leave {
+  border-color: rgba(143, 201, 255, 0.3);
+  background: linear-gradient(135deg, rgba(143, 201, 255, 0.08), rgba(169, 230, 195, 0.08));
+}
+
+.finale-leave:hover {
+  border-color: rgba(143, 201, 255, 0.5);
+  background: linear-gradient(135deg, rgba(143, 201, 255, 0.14), rgba(169, 230, 195, 0.12));
+}
+
+.finale-ending {
+  text-align: center;
+  font-size: 15px !important;
+  color: rgba(255, 249, 238, 0.85) !important;
+}
+
+/* ===== 新场景背景色 ===== */
+.scene-restaurant {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px) 0 0 / 48px 100%,
+    radial-gradient(circle at 64% 18%, rgba(255, 210, 122, 0.24), transparent 22%),
+    linear-gradient(180deg, rgba(68, 52, 38, 0.92), rgba(32, 24, 18, 0.88));
+}
+
+.scene-postoffice {
+  background:
+    radial-gradient(circle at 28% 22%, rgba(143, 201, 255, 0.2), transparent 24%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px) 0 0 / 52px 100%,
+    linear-gradient(180deg, rgba(52, 48, 76, 0.92), rgba(22, 20, 45, 0.9));
+}
+
+.scene-lighthouse {
+  background:
+    radial-gradient(circle at 50% 8%, rgba(255, 210, 122, 0.28), transparent 24%),
+    linear-gradient(180deg, rgba(62, 78, 102, 0.92), rgba(18, 28, 52, 0.9));
+}
+
+.scene-archive {
+  background:
+    radial-gradient(circle at 72% 16%, rgba(247, 168, 200, 0.18), transparent 22%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px) 0 0 / 44px 100%,
+    linear-gradient(180deg, rgba(58, 48, 78, 0.94), rgba(22, 18, 44, 0.9));
+}
+
+.scene-finale {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 210, 122, 0.16), transparent 40%),
+    linear-gradient(180deg, rgba(26, 22, 50, 0.96), rgba(14, 12, 32, 0.96));
+}
+
+/* ===== 隐藏结局样式 ===== */
+.finale-secret {
+  border-color: rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(247, 168, 200, 0.1));
+  animation: secretGlow 2s ease-in-out infinite;
+}
+
+@keyframes secretGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+}
+
+.finale-secret:hover {
+  border-color: rgba(255, 215, 0, 0.6);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(247, 168, 200, 0.15));
+}
+
+/* 故事碎片展示 */
+.secret-ending-shards {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(255, 215, 0, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.secret-ending-shards > p:first-child {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.7);
+  margin-bottom: 12px;
+}
+
+.shards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shard-item {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.9);
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 215, 0, 0.4);
+}
+
+.ending-progress {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(255, 249, 238, 0.5);
+  text-align: center;
+}
+
+/* ===== 隐藏结局样式 ===== */
+.finale-secret {
+  border-color: rgba(255, 215, 0, 0.4);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(247, 168, 200, 0.1));
+  animation: secretGlow 2s ease-in-out infinite;
+}
+
+@keyframes secretGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+  50% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.4); }
+}
+
+.finale-secret:hover {
+  border-color: rgba(255, 215, 0, 0.6);
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.22), rgba(247, 168, 200, 0.15));
+}
+
+/* 故事碎片展示 */
+.secret-ending-shards {
+  margin-top: 16px;
+  padding: 16px;
+  background: rgba(255, 215, 0, 0.08);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.secret-ending-shards > p:first-child {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.7);
+  margin-bottom: 12px;
+}
+
+.shards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shard-item {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.9);
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border-left: 3px solid rgba(255, 215, 0, 0.4);
+}
+
+.ending-progress {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(255, 249, 238, 0.5);
+  text-align: center;
+}
+
+/* ===== 成就系统样式 ===== */
+.achievements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.achievement-item.earned {
+  border-color: rgba(255, 210, 122, 0.3);
+  background: linear-gradient(135deg, rgba(255, 210, 122, 0.08), rgba(247, 168, 200, 0.05));
+}
+
+.achievement-item.locked {
+  opacity: 0.5;
+  filter: grayscale(0.8);
+}
+
+.achievement-icon {
+  font-size: 28px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.achievement-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.achievement-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 249, 238, 0.95);
+}
+
+.achievement-desc {
+  font-size: 12px;
+  color: rgba(255, 249, 238, 0.6);
+}
+
+.achievement-rare {
+  font-size: 10px;
+  padding: 2px 6px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(247, 168, 200, 0.15));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  color: rgba(255, 215, 0, 0.9);
+}
+
+/* ===== 成就系统样式 ===== */
+.achievements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.2s ease;
+}
+
+.achievement-item.earned {
+  border-color: rgba(255, 210, 122, 0.3);
+  background: linear-gradient(135deg, rgba(255, 210, 122, 0.08), rgba(247, 168, 200, 0.05));
+}
+
+.achievement-item.locked {
+  opacity: 0.5;
+  filter: grayscale(0.8);
+}
+
+.achievement-icon {
+  font-size: 28px;
+  min-width: 40px;
+  text-align: center;
+}
+
+.achievement-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.achievement-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 249, 238, 0.95);
+}
+
+.achievement-desc {
+  font-size: 12px;
+  color: rgba(255, 249, 238, 0.6);
+}
+
+.achievement-rare {
+  font-size: 10px;
+  padding: 2px 6px;
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(247, 168, 200, 0.15));
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 8px;
+  color: rgba(255, 215, 0, 0.9);
+}
+
+
+/* ===== 故事回顾页面样式 ===== */
+.storybook-list {
+  display: grid;
+  gap: 12px;
+  max-height: 340px;
+  overflow-y: auto;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.storybook-item {
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.storybook-item.locked {
+  opacity: 0.6;
+}
+
+.storybook-item.collected {
+  border-color: rgba(255, 210, 122, 0.3);
+  background: rgba(255, 210, 122, 0.08);
+}
+
+.storybook-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.storybook-icon {
+  font-size: 24px;
+}
+
+.storybook-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.storybook-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 249, 238, 0.95);
+}
+
+.storybook-status {
+  font-size: 12px;
+  color: rgba(255, 249, 238, 0.5);
+}
+
+.storybook-fragment {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  color: rgba(255, 210, 122, 0.9);
+  line-height: 1.5;
+}
+
+.storybook-secret {
+  padding: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 12px;
+  background: rgba(255, 215, 0, 0.12);
+  color: rgba(255, 215, 0, 0.95);
+  font-size: 14px;
+  text-align: center;
+  font-weight: 600;
+}
+
+
+/* ===== 故事回顾页面样式 ===== */
+.storybook-list {
+  display: grid;
+  gap: 12px;
+  max-height: 340px;
+  overflow-y: auto;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.storybook-item {
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.storybook-item.locked {
+  opacity: 0.6;
+}
+
+.storybook-item.collected {
+  border-color: rgba(255, 210, 122, 0.3);
+  background: rgba(255, 210, 122, 0.08);
+}
+
+.storybook-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.storybook-icon {
+  font-size: 24px;
+}
+
+.storybook-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.storybook-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: rgba(255, 249, 238, 0.95);
+}
+
+.storybook-status {
+  font-size: 12px;
+  color: rgba(255, 249, 238, 0.5);
+}
+
+.storybook-fragment {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  color: rgba(255, 210, 122, 0.9);
+  line-height: 1.5;
+}
+
+.storybook-secret {
+  padding: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.4);
+  border-radius: 12px;
+  background: rgba(255, 215, 0, 0.12);
+  color: rgba(255, 215, 0, 0.95);
+  font-size: 14px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ===== 记忆配对游戏样式 ===== */
+.memory-game {
+  padding: 16px;
+  text-align: center;
+}
+
+.memory-intro {
+  margin-bottom: 16px;
+  color: rgba(255, 249, 238, 0.8);
+  font-size: 14px;
+}
+
+.memory-start-btn {
+  margin-bottom: 20px;
+  padding: 12px 32px;
+}
+
+.memory-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.memory-card .card-front,
+.memory-card .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  transition: transform 0.4s;
+}
+
+.memory-card .card-back {
+  background: linear-gradient(135deg, rgba(255, 210, 122, 0.3), rgba(247, 168, 200, 0.3));
+  border: 2px solid rgba(255, 210, 122, 0.5);
+}
+
+.memory-card .card-front {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+  transform: rotateY(180deg);
+}
+
+.memory-card.flipped .card-front,
+.memory-card.flipped .card-back {
+  transform: rotateY(180deg);
+}
+
+.memory-card.matched {
+  opacity: 0.7;
+}
+
+/* ===== 时间线排序游戏样式 ===== */
+.timeline-game {
+  padding: 16px;
+  text-align: center;
+}
+
+.timeline-intro {
+  margin-bottom: 16px;
+  color: rgba(255, 249, 238, 0.8);
+  font-size: 14px;
+}
+
+.timeline-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 320px;
+  margin: 0 auto 16px;
+}
+
+.timeline-slot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.timeline-slot.filled {
+  border-style: solid;
+  border-color: rgba(255, 210, 122, 0.5);
+  background: rgba(255, 210, 122, 0.1);
+}
+
+.timeline-slot:active {
+  transform: scale(0.98);
+}
+
+.slot-icon {
+  font-size: 20px;
+}
+
+.slot-name {
+  font-size: 14px;
+  color: rgba(255, 249, 238, 0.9);
+}
+
+.slot-empty {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.4);
+}
+
+.timeline-items {
+  margin-bottom: 16px;
+}
+
+.timeline-items-label {
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.6);
+}
+
+.timeline-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 249, 238, 0.9);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.timeline-item:active {
+  transform: scale(0.95);
+}
+
+.timeline-submit-btn {
+  padding: 12px 32px;
+}
+
+/* ===== 记忆配对游戏样式 ===== */
+.memory-game {
+  padding: 16px;
+  text-align: center;
+}
+
+.memory-intro {
+  margin-bottom: 16px;
+  color: rgba(255, 249, 238, 0.8);
+  font-size: 14px;
+}
+
+.memory-start-btn {
+  margin-bottom: 20px;
+  padding: 12px 32px;
+}
+
+.memory-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1000px;
+}
+
+.memory-card .card-front,
+.memory-card .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  transition: transform 0.4s;
+}
+
+.memory-card .card-back {
+  background: linear-gradient(135deg, rgba(255, 210, 122, 0.3), rgba(247, 168, 200, 0.3));
+  border: 2px solid rgba(255, 210, 122, 0.5);
+}
+
+.memory-card .card-front {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08));
+  transform: rotateY(180deg);
+}
+
+.memory-card.flipped .card-front,
+.memory-card.flipped .card-back {
+  transform: rotateY(180deg);
+}
+
+.memory-card.matched {
+  opacity: 0.7;
+}
+
+/* ===== 时间线排序游戏样式 ===== */
+.timeline-game {
+  padding: 16px;
+  text-align: center;
+}
+
+.timeline-intro {
+  margin-bottom: 16px;
+  color: rgba(255, 249, 238, 0.8);
+  font-size: 14px;
+}
+
+.timeline-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 320px;
+  margin: 0 auto 16px;
+}
+
+.timeline-slot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.timeline-slot.filled {
+  border-style: solid;
+  border-color: rgba(255, 210, 122, 0.5);
+  background: rgba(255, 210, 122, 0.1);
+}
+
+.timeline-slot:active {
+  transform: scale(0.98);
+}
+
+.slot-icon {
+  font-size: 20px;
+}
+
+.slot-name {
+  font-size: 14px;
+  color: rgba(255, 249, 238, 0.9);
+}
+
+.slot-empty {
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.4);
+}
+
+.timeline-items {
+  margin-bottom: 16px;
+}
+
+.timeline-items-label {
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: rgba(255, 249, 238, 0.6);
+}
+
+.timeline-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 4px;
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 249, 238, 0.9);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.timeline-item:active {
+  transform: scale(0.95);
+}
+
+.timeline-submit-btn {
+  padding: 12px 32px;
 }

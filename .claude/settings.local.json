@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --check D:/深夜小屋/main.js)",
+      "Bash(identify D:/深夜小屋/assets/scenes/*.png)",
+      "Bash(node --check D:/深夜小屋/style.css)",
+      "Bash(node -c main.js)",
+      "Bash(node *)"
+    ]
+  }
+}
